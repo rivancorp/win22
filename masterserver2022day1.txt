@@ -1,0 +1,130 @@
+1.ncpa.cpl
+2. mstsc
+3. devmgmt.msc
+
+Task1: System Engineering/Administration:
+Windows Server 2022 and beyond:
+- WindowsServer
+- Virtualization: Linux
+- Network Infra.
+
+realWorld: Windows 2022 server can do it all:
+
+TASK2: Windows 2022 Services: 
+installing windows 2022 DHCP server method1: gui:
+
+pre-install Task:
+cmd
+powershell
+PS c:\
+turnOffirewall:
+Set-NetfirewallProfile -name public,private,domain -enabled False
+
+TASK3: git and github with windows server.
+cmd
+cd Desktop
+mkdir _YourName
+cd _YourName
+git  clone  https://github.com/rivancorp/w22
+
+TASK4: Remote Administration/ WFH
+1. enable remote access:
+    system settings -> enable remote desktop
+
+2. Remote Powershell shell method: 10.m.1.8
+  
+3.  Admin Center/Azure web based:  https://w22/
+- always rename your server
+
+TASK5: windows network infrastructure: 
+Windows + Vlans = best friends.
+
+git clone https://github.com/rivancorp/ccna2
+
+TASK6: wireshark is soulmate for Windows Server.
+
+TASK7:
+powershell
+Install-WindowsFeature  DHCP -includeManagementTools
+
+install tftp for ipPhones: di madali ang wserver + iphones
+
+Cisco Switch:
+config t
+ip routing
+int vlan 100
+ NO ip Helper-Address 10.m.1.0
+ ip Helper-Address 10.m.1.10
+end
+
+@CiscoWireless:
+config t
+Dot11  ssid  winsMwifi
+ authentication open
+ authentication key-management wpa
+ wpa-psk  ascii  winser123
+ guest-mode  
+int dot11Radio 0
+ no shut
+ encryption mode ciphers tkip
+ ssid  winsMwifi
+      
+ap>
+config t
+username 
+
+@CoreSwitch: dahil vlan 10 ang wireless:
+Cisco:
+config t
+ip routing
+int vlan 10
+ ip Helper-Address 10.m.1.10
+end
+
+Cisco Switch: helper-Address for Vlan50:
+config t
+ip routing
+int vlan 50
+ ip Helper-Address 10.m.1.10
+end
+
+TASK8: DOMAIN NAME SYSTEM/SERVER installation/configuration.
+step1: learn previous/old dns install:
+powershell
+Uninstall-WindowsFeature  -name dns -includemanagementtools
+
+step2:
+  install-WindowsFeature  -name dns -includemanagementtools
+
+PrimaryZone: ikaw ang gagawa
+SecondaryZone: iba ang gagawa,gamit mo.
+StubZone: Kopyahin ang gawa ng iba.
+
+TASK8.1: advance DNS config for the real world.
+learn how to make:
+_______ empty Host/A
+Cname/ or alias for web,smtp,pop,imap
+MX records for email
+
+realName      aliases:
+
+w22         www=web,smtp=sendMail,pop=GetMail,imap=RichEmail
+
+TASK9: Installation and configuring basic Web Services/Apps.
+powershell
+
+Install-windowsFeature  -name web-server -includemanagementTools
+
+add-DnsServerResourceRecord -zonename gawako12.com -Cname -name bago -hostname w22.gawako12.com
+
+New-Website -name "PangApat" -hostheader "bago.gawako12.com" -physicalpath "d:\webs\appbiz"
+
+TASK10:  INSTALLING YOUR OWN EMAIL SERVERS at your office.
+MicorsoftExchange = superMahal + yearlySubscription!
+ZimbraEmail = MedyoMura + mapapaMura ka sa Subscription/troubshooting
+Hmail = libre, maliit, pag Lab
+
+
+
+
+

@@ -1,0 +1,67 @@
+
+ 
+@purple:
+1. powershell
+2. Configure-SMremoting -enable
+3. Enable-PSremoting  -force
+4. set-item  wsman:\localhost\Client\TrustedHosts  -value *   
+5. pls type "Y"
+6  Set-Service WinRM -StartMode Automatic
+
+@ONreal PC:
+windowsPowershell ISE:
+
+$myip1  =  "10.12.1.6"
+$cred1  =  Get-Credential
+$con1 = New-PSsession -ComputerName $myip1 -credential $cred1
+Get-Pssession  
+Enter-Pssession 
+
+part2:   [10.12.1.6]: PS C:\>
+
+Install-WindowsFeature Net-Framework-Core -source d:\sources\sxs
+
+Install-WindowsFeature  -name DNS  -includeManagementTools
+
+Install-WindowsFeature  -name Web-Server  -includeManagementTools
+
+part3: Greating DNS domains remotely:
+
+Add-DnsServerPrimaryZone -Name "domM.com" -ZoneFile "domM.com.dns"
+
+Add-DnsServerPrimaryZone -Name "dom88.com" -ZoneFile "dom88.com.dns"
+
+@creating A record, Cname records:
+
+add-DnsServerResourceRecord -zonename domM.com -A -name s1 -ipv4address 10.m.1.6
+
+add-DnsServerResourceRecond -zonename domM.com -Cname -name www -hostname s1.domM.com
+
+add-DnsServerResourceRecord -zonename dom88.com -Cname -name www -hostname s1.dom88.com
+add-DnsServerResourceRecord -zonename dom88.com -Cname -name pop -hostname s1.dom88.com
+add-DnsServerResourceRecord -zonename dom88.com -Cname -name imap -hostname s1.dom88.com
+add-DnsServerResourceRecord -zonename dom88.com -Cname -name smtp -hostname s1.dom88.com
+
+TASK3:  CREATE A WEBSITE remotely via powershell:
+
+New-Website -name "TESTme" -hostheader "www.domM.com"  -physicalpath "c:\webs\datingbiz" -force
+ex:
+New-Website -name "TESTme" -hostheader "www.dom88.com"  -physicalpath "c:apps\webs\datingbiz"
+
+task4:
+1. Connect remotely via powershell but first:
+on purple:
+
+@purple:
+1. powershell
+2. Configure-SMremoting -enable
+3. Enable-PSremoting  -force
+4. set-item  wsman:\localhost\Client\TrustedHosts  -value *   
+5. pls type "Y"
+6  Set-Service WinRM -StartMode Automatic
+
+@tunay:
+
+
+
+
